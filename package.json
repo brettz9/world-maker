@@ -1,0 +1,19 @@
+{
+    "name": "world-maker",
+    "title": "World Maker",
+    "id": "world-maker@brett.zamir",
+    "version": "0.1.0",
+    "license": "MIT",
+    "author": "Brett Zamir",
+    "contributors": [],
+    "main": "index",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/brettz9/world-maker.git"
+    },
+    "bugs": "https://github.com/brettz9/world-maker/issues",
+    "description": "A simple tool for building interactive choose-your-own-adventure type of text games.",
+    "keywords": [
+        "game", "adventure"
+    ]
+}
