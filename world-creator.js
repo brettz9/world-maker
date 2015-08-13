@@ -39,6 +39,7 @@
         // Todo: Give choice from existing users or option to create a new one
         // Todo: Save user stats and allow reuse
         this.createCharacter(function () {
+            this.userInjuryIndex = 0;
             var room = this.rooms[json.startingRoom];
             this.processRoom(room);
         }.bind(this));
@@ -78,6 +79,9 @@
     };
     WorldCreator.prototype.processRoom = function (room) {
         var antagonist = this.antagonists[room.antagonistID]; // description, strength, agility
+        if (!antagonist.injuryIndex) {
+            antagonist.injuryIndex = 0;
+        }
         var treasure = this.treasures[room.treasureID]; // description, value
         
         var desc = [
@@ -108,7 +112,7 @@
                 this.processRoom(this.rooms[room.rooms[action]]);
             }
             else if (action === 'a' || action === 'attack') {
-                this.processAttack();
+                this.processAttack(antagonist, treasure, room);
             }
             else {
                 this.alert("wrongAction", "The action you have chosen is not recognized. Please try another.", function () {
@@ -117,7 +121,7 @@
             }
         }, this);
     };
-    WorldCreator.prototype.processAttack = function (antagonist, treasure) {
+    WorldCreator.prototype.processAttack = function (antagonist, treasure, room) {
         var userAttackLuck = Math.random() * 100;
         var antagEvadeLuck = Math.random() * 100;
         if (userAttackLuck < this.user.strength) {
@@ -125,10 +129,11 @@
                 
             }
             else {
-                this.injuryLevels.antagonist[i].replace(/\{\{antagonist\}\}/g, antagonist.description);
+                this.injuryLevels.antagonist[antagonist.injuryIndex++].replace(/\{\{antagonist\}\}/g, antagonist.description);
                 this.user.treasure += treasure.value;
                 if (this.gameType === '') { // roomID, treasure (and minimum), all
                     this.gameValue;
+                    this.processRoom(room);
                 }
             }
             return;
@@ -140,7 +145,7 @@
                 
             }
             else {
-                this.injuryLevels.user[i].replace(/\{\{user\}\}/g, this.user.name);
+                this.injuryLevels.user[this.userInjuryIndex++].replace(/\{\{user\}\}/g, this.user.name);
             }
         }
     };

@@ -35,7 +35,7 @@ The following instance methods of `WorldCreator` should normallly not need to be
 
 - ***WorldCreator.processJSON*** - Handles retrieved JSON (its single argument).
 - ***WorldCreator.processRoom*** - Handles an individual room object (its single argument).
-- ***WorldCreator.processAttack*** - Handles an attack by the user and any return attack (passed an antagonist and treasure).
+- ***WorldCreator.processAttack*** - Handles an attack by the user and any return attack (passed the antagonist, treasure, and room).
 - ***WorldCreator.createCharacter*** - Prompts the user for a character type and invokes `createCharacterAttributes` with the result. Accepts a callback as its single argument (e.g., to invoke after a name for the character has been chosen).
 - ***WorldCreator.createCharacterAttributes*** - Build attributes for the selected character type (its first argument). Will build a character object (with the following numeric properties: `strength`, `agility`, `treasure`). Accepts a callback as its second argument (to invoke after a name for the character has been chosen).
 - ***WorldCreator.alert*** - Utilizes the simple browser alert. Behavior can be overridden via `cfg` during instantiation.
