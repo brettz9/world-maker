@@ -79,8 +79,8 @@
     };
     WorldCreator.prototype.processRoom = function (room) {
         var antagonist = this.antagonists[room.antagonistID]; // description, strength, agility
-        if (!antagonist.injuryIndex) {
-            antagonist.injuryIndex = 0;
+        if (!room.antagonistInjuryIndex) {
+            room.antagonistInjuryIndex = 0;
         }
         var treasure = this.treasures[room.treasureID]; // description, value
         
@@ -131,15 +131,14 @@
                 }, this);
                 return;
             }
-            this.alert("userAttackSuccess", this.user.name + " landed a hit. " + this.injuryLevels.antagonist[antagonist.injuryIndex].replace(/\{\{antagonist\}\}/g, antagonist.name), function () {
-                antagonist.injuryIndex++;
-                if (this.injuryLevels.antagonist[antagonist.injuryIndex] === undefined) {
+            this.alert("userAttackSuccess", this.user.name + " landed a hit. " + this.injuryLevels.antagonist[room.antagonistInjuryIndex].replace(/\{\{antagonist\}\}/g, antagonist.name), function () {
+                room.antagonistInjuryIndex++;
+                if (this.injuryLevels.antagonist[room.antagonistInjuryIndex] === undefined) {
                     this.alert("antagonistDefeated", antagonist.name + " is defeated!", function () {
                         this.user.treasure += treasure.value;
                         if (this.gameType === '') { // "roomID", "treasureID", "antagonistID", "minimumTreasure", or "all"
                             this.gameValue; // "roomID", "treasureID", or "antagonistID" string or a "minimumTreasure" numeric amount
                             this.processRoom(room);
-                            // Todo: Duplicate antagonist injury indexes, etc. in case same antag. repeated across rooms!
                             // Todo: Duplicate treasures per room to avoid marking as unavailable if same treasure obtained elsewhere
                         }
                     }, this);
