@@ -3,7 +3,7 @@
 (function () {'use strict';
 
    var wc = new WorldCreator();
-   wc.create('game.json');
+   wc.createWorld('game.json');
 
 
 }());

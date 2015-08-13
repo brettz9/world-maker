@@ -21,7 +21,7 @@ JavaScript:
 
 ```js
 var wc = new WorldCreator();
-wc.create('game.json');
+wc.createWorld('game.json');
 ```
 
 # API
@@ -30,7 +30,7 @@ wc.create('game.json');
     - `prompt` - A function which will be passed a code (currently only "userName" and "room"), a question to pose to the user, and a callback which should be invoked with an action (currently either one of the directions, or 'a' or 'attack' for attack) when the user responds.
     - `alert` - A function which will be passed a code (currently only "direction"), an alert message to the user, and a callback which should be invoked when the alert has been dismissed and execution can continue.
     - `directions` - An array of allowable directions. Defaults to `['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest']`.
-- ***WorldCreator.create(gameJSON)*** - Public instance method to begin the game indicated by `gameJSON`. `gameJSON` can be either a JSON object or a string of a URL to retrieve for the JSON. (Will invoke `processJSON` with the result.)
+- ***WorldCreator.createWorld(gameJSON)*** - Public instance method to begin the game indicated by `gameJSON`. `gameJSON` can be either a JSON object or a string of a URL to retrieve for the JSON. (Will invoke `processJSON` with the result.)
 
 The following instance methods of `WorldCreator` should normallly not need to be directly overridden:
 

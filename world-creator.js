@@ -92,7 +92,7 @@
         var action = prompt(desc);
         cb(action, code);
     };
-    WorldCreator.prototype.create = function (jsonURL) {
+    WorldCreator.prototype.createWorld = function (jsonURL) {
         if (typeof jsonURL === 'string') {
             getJSON(jsonURL, this.processJSON.bind(this));
         }
