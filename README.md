@@ -43,43 +43,53 @@ Game JSON format:
 
 ```js
 {
-    "gameType": "", // "roomID", "treasureID", "minimumTreasure", or "all"; defaults to "all"
-    "gameValue": "", // Points to a "roomID" or "treasureID" string or a "minimumTreasure" numeric amount
+    "gameType": "all", // "roomID", "treasureID", "minimumTreasure", or "all"; defaults to "all"
+    "gameValue": "", // Points to a "roomID" or "treasureID" string or a "minimumTreasure" numeric amount; not required if "gameType" is "all"
     "describeChildRooms": true, // boolean
-    "defaultRoomType": "", // Used for naming in giving room descriptions to the user. Might be "corridor", "hall", "room", etc.
+    "defaultRoomType": "hall", // Used for naming in giving room descriptions to the user. Might be "corridor", "hall", "room", etc.
     "userPattern": {
-        "strength": { //
+        "strength": {
             "min": 15,
             "max": 20
         },
-        "agility": { //
+        "agility": {
             "min": 15,
             "max": 18
         }
     },
-    "startingRoom": "", // ID of a room where the user will begin
-    "antagonists": { // 
-        "someAntagonistID": {
-            
+    "startingRoom": "mainHall", // ID of a room where the user will begin
+    "antagonists": {
+        "goblin": {
+            "description": "an ugly goblin",
+            "strength": 7,
+            "agility": 10
         },
-        "anotherAntagonistID": {
-            
+        "ogre": {
+            "description": "a foul-smelling ogre",
+            "strength": 20,
+            "agility": 7
         }
     },
-    "treasures": { // 
-        "someTreasureID": {
-            
+    "treasures": {
+        "ruby": {
+            "description": "a beautiful red ruby",
+            "value": 500
         },
-        "anotherTreasureID": {
-            
+        "emerald": {
+            "description": "a stunning emerald",
+            "value": 700
         }
     },
     "rooms": {
-        "someRoomID": {
-            
+        "mainHall": {
+            "description": "You are in the main hall. {{antagonist}} is already here to greet you. He is holding {{treasure}}.",
+            "antagonistID": "goblin",
+            "treasureID": "ruby"
         },
-        "anotherRoomID": {
-            
+        "eerieCorridor": {
+            "description": "You step into a dank, eerie-looking corridor. In the shadows, you see {{antagonist}} guarding {{treasure}}.",
+            "antagonistID": "ogre",
+            "treasureID": "emerald"
         }
     }
 }

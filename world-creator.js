@@ -23,8 +23,8 @@
         this.describeChildRooms = json.describeChildRooms === undefined ? true : json.describeChildRooms;
         
         this.defaultRoomType = json.defaultRoomType;
-        this.antagonists = json.antagonists; // id: name, strength, agility
-        this.treasures = json.treasures; // id: name, value
+        this.antagonists = json.antagonists; // id: description, strength, agility
+        this.treasures = json.treasures; // id: description, value
         
         var userPattern = json.userPattern;
         var strength = userPattern.strength;
@@ -41,8 +41,8 @@
         this.processRoom(room);
     };
     WorldCreator.prototype.processRoom = function (room) {
-        var antagonist = this.antagonists[room.antagonistID]; // name, strength, agility
-        var treasure = this.treasures[room.treasureID]; // name, value
+        var antagonist = this.antagonists[room.antagonistID]; // description, strength, agility
+        var treasure = this.treasures[room.treasureID]; // description, value
         
         var desc = (room.description ||
             ("You are in a " +
@@ -51,11 +51,11 @@
             )) + '\n';
         // room.type: room/corridor/etc.
 
-        if (antagonist && antagonist.name) {
-            desc += "You see a " + antagonist.name + '.\n';
+        if (antagonist && antagonist.description) {
+            desc += "You see a " + antagonist.description + '.\n';
         }
-        if (treasure && treasure.name) {
-            desc += "There is also a " + treasure.name + '.\n';
+        if (treasure && treasure.description) {
+            desc += "There is also a " + treasure.description + '.\n';
         }
         desc += "What would you like to do (attack, north, south, etc.)?";
         
