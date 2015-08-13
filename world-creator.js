@@ -33,8 +33,8 @@
         // Todo: Give choice from existing users or option to create a new one
         // Todo: Save user stats and allow reuse
         this.user = {};
-        this.user.strength = getRandomIntInclusive(strength.min, strength.max);
-        this.user.agility = getRandomIntInclusive(agility.min, agility.max);
+        this.user.strength = WorldCreator.getRandomIntInclusive(strength.min, strength.max);
+        this.user.agility = WorldCreator.getRandomIntInclusive(agility.min, agility.max);
         this.user.treasure = 0;
         
         var room = json.room;
@@ -100,6 +100,7 @@
             this.processJSON(jsonURL);
         }
     };
+    WorldCreator.getRandomIntInclusive = getRandomIntInclusive;
     
     window.WorldCreator = WorldCreator;
 }());

@@ -5,17 +5,31 @@ type of text games. Inspired by the coolest game from Apple IIe, Eamon!
 
 ***INCOMPLETE***
 
+# Installation
+
+`npm install .`
+
 # Usage
 
 HTML:
 ```html
+<script src="node_modules/simple-get-json/index.js"></script>
 <script src="world-maker.js"></script>
 ```
 
 JavaScript:
 
 ```js
+var wc = new WorldCreator();
+wc.create('game.json');
 ```
+
+# API
+
+- ***WorldCreator(cfg)*** - Constructor accepting an optional `cfg` object with the following optional properties:
+    - `prompt` - A function which will be passed a question message to the user and a callback which should be invoked with an action () when the user responds.
+    - `alert` - A function which will be passed an alert message to the user and a callback which should be invoked when the alert has been dismissed and execution can continue.
+    - `directions` - An array of allowable directions. Defaults to ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest'].
 
 # Todos
 

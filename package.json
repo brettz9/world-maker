@@ -7,6 +7,9 @@
     "author": "Brett Zamir",
     "contributors": [],
     "main": "index",
+    "dependencies": {
+        "simple-get-json": "1.x"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/brettz9/world-maker.git"
