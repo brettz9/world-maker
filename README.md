@@ -127,3 +127,4 @@ Game JSON format:
 1. Option to show movement options, etc. as buttons
 1. Option to allow/disallow antagonist attacks before user can move
 1. Allow user to choose from different types of characters
+1. Allow injury levels to differ for different antagonists (including varying for the user)
