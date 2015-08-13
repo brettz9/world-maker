@@ -97,7 +97,7 @@
                         return initialCase(treasure.description);
                     })
             ].join(' ') +
-            (this.describeDirections ? " You may go " + Object.keys(room.rooms).join(', ') : '') +
+            (this.describeDirections ? " You may go " + Object.keys(room.rooms).join(', ') + '.' : '') +
             '\n';
 
         desc += " What would you like to do (attack, north, south, etc.)?";
