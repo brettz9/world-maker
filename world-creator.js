@@ -9,8 +9,8 @@
             return new WorldCreator();
         }
         cfg = cfg || {};
-        if (cfg.process) {
-            this.process = cfg.process;
+        if (cfg.prompt) {
+            this.prompt = cfg.prompt;
         }
     }
     WorldCreator.prototype.processJSON = function (json) {
