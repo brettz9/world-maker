@@ -28,7 +28,7 @@ wc.createWorld('game.json');
 
 - ***WorldCreator(cfg)*** - Constructor accepting an optional `cfg` object with the following optional properties:
     - `prompt` - A function which will be passed a code (currently "characterType", "userName", or "action"), a question to pose to the user, and a callback which should be invoked with the response (currently either one of the directions, or 'a' or 'attack' for attack) when the user is finished providing one.
-    - `alert` - A function which will be passed a code (currently "wrongCharacterType", "wrongAction" or "wrongDirection"), an alert message to the user, and a callback which should be invoked when the alert has been dismissed and execution can continue.
+    - `alert` - A function which will be passed a code (currently "wrongCharacterType", "wrongUserName", "wrongAction" or "wrongDirection"), an alert message to the user, and a callback which should be invoked when the alert has been dismissed and execution can continue.
     - `directions` - An array of allowable directions. Defaults to `['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest']`.
 - ***WorldCreator.createWorld(gameJSON)*** - Public instance method to begin the game indicated by `gameJSON`. `gameJSON` can be either a JSON object or a string of a URL to retrieve for the JSON. (Will invoke `processJSON` with the result.)
 
@@ -36,7 +36,8 @@ The following instance methods of `WorldCreator` should normallly not need to be
 
 - ***WorldCreator.processJSON*** - Handles retrieved JSON (its single argument).
 - ***WorldCreator.processRoom*** - Handles an individual room object (its single argument).
-- ***WorldCreator.createCharacter*** - Build a character object (with the following numeric properties: `strength`, `agility`, `treasure`). Accepts a callback as its single argument (e.g., to invoke after a name for the character has been chosen).
+- ***WorldCreator.createCharacter*** - Prompts the user for a character type and invokes `createCharacterAttributes` with the result. Accepts a callback as its single argument (e.g., to invoke after a name for the character has been chosen).
+- ***WorldCreator.createCharacterAttributes*** - Build attributes for the selected character type (its first argument). Will build a character object (with the following numeric properties: `strength`, `agility`, `treasure`). Accepts a callback as its second argument (to invoke after a name for the character has been chosen).
 - ***WorldCreator.alert*** - Utilizes the simple browser alert. Behavior can be overridden via `cfg` during instantiation.
 - ***WorldCreator.prompt*** - Utilizes the simple browser prompt. Behavior can be overridden via `cfg` during instantiation.
 

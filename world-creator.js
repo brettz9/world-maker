@@ -1,3 +1,5 @@
+/*global getJSON*/
+/*jslint vars:true, todo:true*/
 (function () {'use strict';
 
     function getRandomIntInclusive(min, max) {
@@ -42,23 +44,32 @@
         this.prompt("characterType", "Please choose a type of character: " + Object.keys(this.characterTypes).map(function (characterType) {
             return this.characterTypes[characterType].name;
         }, this).join(', '), function (characterType) {
-            this.userPattern = this.characterTypes[characterType];
-            if (!this.userPattern) {
-                this.alert("wrongCharacterType", "Please choose a valid character type", function () {
-                    this.createCharacter(cb);
+            this.createCharacterAttributes(characterType, cb);
+        }, this);
+    };
+    WorldCreator.prototype.createCharacterAttributes = function (characterType, cb) {
+        this.userPattern = this.characterTypes[characterType];
+        if (!this.userPattern) {
+            this.alert("wrongCharacterType", "Please choose a valid character type", function () {
+                this.createCharacter(cb);
+            }, this);
+            return;
+        }
+        
+        var strength = this.userPattern.strength;
+        var agility = this.userPattern.agility;
+        this.user.strength = WorldCreator.getRandomIntInclusive(strength.min, strength.max);
+        this.user.agility = WorldCreator.getRandomIntInclusive(agility.min, agility.max);
+        this.user.treasure = 0;
+        this.prompt("userName", "Please choose a name for your character", function (name) {
+            if (!name) {
+                this.alert("wrongUserName", "Please choose a valid user name.", function () {
+                    this.createCharacterAttributes(characterType, cb);
                 }, this);
                 return;
             }
-            
-            var strength = this.userPattern.strength;
-            var agility = this.userPattern.agility;
-            this.user.strength = WorldCreator.getRandomIntInclusive(strength.min, strength.max);
-            this.user.agility = WorldCreator.getRandomIntInclusive(agility.min, agility.max);
-            this.user.treasure = 0;
-            this.prompt("userName", "Please choose a name for your character", function (name) {
-                this.user.name = name;
-                cb();
-            }, this);
+            this.user.name = name;
+            cb();
         }, this);
     };
     WorldCreator.prototype.processRoom = function (room) {
@@ -68,7 +79,6 @@
         var desc = room.description.replace(/\{\{antagonist\}\}/g, antagonist.description).replace(/\{\{treasure\}\}/g, treasure.description) +
             (this.describeDirections ? "You may go " + Object.keys(room.rooms).join(', ') : '') +
             '\n';
-        // room.type: room/corridor/etc.
 
         desc += "What would you like to do (attack, north, south, etc.)?";
         
