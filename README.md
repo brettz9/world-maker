@@ -49,6 +49,20 @@ Game JSON format:
     "gameValue": "", // Points to a "roomID", "treasureID", or "antagonistID" string or a "minimumTreasure" numeric amount; not required if "gameType" is "all"
     "describeDirections": true, // boolean
     "directions": ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"], // An array of allowable directions
+    "injuryLevels": {
+        "user": [
+            "{{user}} receives a flesh wound.",
+            "{{user}} is hurting.",
+            "{{user}} is bleeding profusely!",
+            "Sad to say, {{user}} is now deceased. Please try again."
+        ],
+        "antagonist": [
+            "{{antagonist}} receives a flesh wound.",
+            "{{antagonist}} is hurting.",
+            "{{antagonist}} is bleeding profusely!",
+            "{{antagonist}} is now pushing up daisies."
+        ]
+    },
     "characterTypes": {
         "warrior": {
             "name": "Warrior",
@@ -73,21 +87,6 @@ Game JSON format:
             }
         }
     },
-    "injuryLevels": {
-        "user": [
-            "{{user}} receives a flesh wound.",
-            "{{user}} is hurting.",
-            "{{user}} is bleeding profusely!",
-            "Sad to say, {{user}} is now deceased. Please try again."
-        ],
-        "antagonist": [
-            "{{antagonist}} receives a flesh wound.",
-            "{{antagonist}} is hurting.",
-            "{{antagonist}} is bleeding profusely!",
-            "{{antagonist}} is now pushing up daisies."
-        ]
-    },
-    "startingRoom": "mainHall", // ID of a room where the user will begin
     "antagonists": {
         "goblin": {
             "description": "an ugly goblin",
@@ -110,6 +109,7 @@ Game JSON format:
             "value": 700
         }
     },
+    "startingRoom": "mainHall", // ID of a room where the user will begin
     "rooms": {
         "mainHall": {
             "description": "You are in the main hall. {{antagonist|initialCap}} is already here to greet you. He is holding {{treasure}}.",

@@ -3,6 +3,20 @@
     "gameValue": "",
     "describeDirections": true,
     "directions": ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"],
+    "injuryLevels": {
+        "user": [
+            "{{user}} receives a flesh wound.",
+            "{{user}} is hurting.",
+            "{{user}} is bleeding profusely!",
+            "Sad to say, {{user}} is now deceased. Please try again."
+        ],
+        "antagonist": [
+            "{{antagonist}} receives a flesh wound.",
+            "{{antagonist}} is hurting.",
+            "{{antagonist}} is bleeding profusely!",
+            "{{antagonist}} is now pushing up daisies."
+        ]
+    },
     "characterTypes": {
         "warrior": {
             "name": "Warrior",
@@ -27,21 +41,6 @@
             }
         }
     },
-    "injuryLevels": {
-        "user": [
-            "{{user}} receives a flesh wound.",
-            "{{user}} is hurting.",
-            "{{user}} is bleeding profusely!",
-            "Sad to say, {{user}} is now deceased. Please try again."
-        ],
-        "antagonist": [
-            "{{antagonist}} receives a flesh wound.",
-            "{{antagonist}} is hurting.",
-            "{{antagonist}} is bleeding profusely!",
-            "{{antagonist}} is now pushing up daisies."
-        ]
-    },
-    "startingRoom": "mainHall",
     "antagonists": {
         "goblin": {
             "description": "an ugly goblin",
@@ -64,6 +63,7 @@
             "value": 700
         }
     },
+    "startingRoom": "mainHall",
     "rooms": {
         "mainHall": {
             "description": "You are in the main hall. {{antagonist|initialCap}} is already here to greet you. He is holding {{treasure}}.",
