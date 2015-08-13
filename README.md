@@ -28,7 +28,7 @@ wc.createWorld('game.json');
 
 - ***WorldCreator(cfg)*** - Constructor accepting an optional `cfg` object with the following optional properties:
     - `prompt` - A function which will be passed a code (currently "characterType", "userName", or "action"), a question to pose to the user, and a callback which should be invoked with the response (currently either one of the directions, or 'a' or 'attack' for attack) when the user is finished providing one.
-    - `alert` - A function which will be passed a code (currently "wrongCharacterType", "wrongUserName", "wrongAction", "wrongDirection", "userDodged", "antagonistDodged", "userAttackSuccess", "antagonistAttackSuccess", "antagonistDefeated", "gameOver"), an alert message to the user, and a callback which should be invoked when the alert has been dismissed and execution can continue.
+    - `alert` - A function which will be passed a code (currently "wrongCharacterType", "wrongUserName", "wrongAction", "wrongDirection", "userDodged", "antagonistDodged", "userAttackSuccess", "antagonistAttackSuccess", "antagonistDefeated", "userMissed", "antagonistMissed", "gameOver"), an alert message to the user, and a callback which should be invoked when the alert has been dismissed and execution can continue.
 - ***WorldCreator.createWorld(gameJSON)*** - Public instance method to begin the game indicated by `gameJSON`. `gameJSON` can be either a JSON object or a string of a URL to retrieve for the JSON. (Will invoke `processJSON` with the result.)
 
 The following instance methods of `WorldCreator` should normallly not need to be directly overridden:

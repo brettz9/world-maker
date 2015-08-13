@@ -131,10 +131,10 @@
                 }, this);
                 return;
             }
-            this.alert("userAttackSuccess", "You landed a hit. " + this.injuryLevels.antagonist[antagonist.injuryIndex].replace(/\{\{antagonist\}\}/g, antagonist.description), function () {
+            this.alert("userAttackSuccess", "You landed a hit. " + this.injuryLevels.antagonist[antagonist.injuryIndex].replace(/\{\{antagonist\}\}/g, antagonist.name), function () {
                 antagonist.injuryIndex++;
                 if (this.injuryLevels.antagonist[antagonist.injuryIndex] === undefined) {
-                    this.alert("antagonistDefeated", function () {
+                    this.alert("antagonistDefeated", antagonist.name + " is defeated!", function () {
                         this.user.treasure += treasure.value;
                         if (this.gameType === '') { // roomID, treasure (and minimum), all
                             this.gameValue;
@@ -147,6 +147,9 @@
             }, this);
             return;
         }
+        this.alert("userMissed", "You missed.", function () {
+            this.processAntagonistAttack(antagonist, treasure, room);
+        }, this);
     };
     WorldCreator.prototype.processAntagonistAttack = function (antagonist, treasure, room) {
         var antagAttackLuck = Math.random() * 100;
@@ -154,7 +157,7 @@
         if (antagAttackLuck < antagonist.strength) {
             if (userEvadeLuck < this.user.agility) {
                 this.alert("userDodged", "You dodged an attack! ", function () {
-                    this.processUserAttack(antagonist, treasure, room);
+                    this.processRoom(room);
                 }, this);
                 return;
             }
@@ -166,9 +169,13 @@
                     }, this);
                     return;
                 }
-                this.processUserAttack(antagonist, treasure, room);
+                this.processRoom(room);
             }, this);
+            return;
         }
+        this.alert("antagonistMissed", initialCase(antagonist.name) + " missed.", function () {
+            this.processRoom(room);
+        }, this);
     };
     WorldCreator.prototype.alert = function (code, msg, cb, thisArg) {
         alert(msg);
