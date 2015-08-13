@@ -27,9 +27,9 @@ wc.create('game.json');
 # API
 
 - ***WorldCreator(cfg)*** - Constructor accepting an optional `cfg` object with the following optional properties:
-    - `prompt` - A function which will be passed a question message to the user and a callback which should be invoked with an action () when the user responds.
+    - `prompt` - A function which will be passed a question message to the user and a callback which should be invoked with an action (currently either one of the directions, or 'a' or 'attack' for attack) when the user responds.
     - `alert` - A function which will be passed an alert message to the user and a callback which should be invoked when the alert has been dismissed and execution can continue.
-    - `directions` - An array of allowable directions. Defaults to ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest'].
+    - `directions` - An array of allowable directions. Defaults to `['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest']`.
 - ***WorldCreator.create(gameJSON)*** - Public instance method to begin the game indicated by `gameJSON`. `gameJSON` can be either a JSON object or a string of a URL to retrieve for the JSON. (Will invoke `processJSON` with the result.)
 
 The following instance methods of `WorldCreator` should normallly not need to be directly overridden:
