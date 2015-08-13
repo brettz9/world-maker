@@ -4,9 +4,13 @@
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    function WorldCreator () {
+    function WorldCreator (cfg) {
         if (!(this instanceof WorldCreator)) {
             return new WorldCreator();
+        }
+        cfg = cfg || {};
+        if (cfg.process) {
+            this.process = cfg.process;
         }
     }
     WorldCreator.prototype.processJSON = function (json) {
