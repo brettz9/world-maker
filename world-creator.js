@@ -36,8 +36,6 @@
         this.rooms = json.rooms;
         this.directions = json.directions || ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest'];
         
-        // Todo: Give choice from existing users or option to create a new one
-        // Todo: Save user stats and allow reuse
         this.createCharacter(function () {
             this.userInjuryIndex = 0;
             this.processRoom(json.startingRoom);

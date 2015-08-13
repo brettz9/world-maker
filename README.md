@@ -139,6 +139,7 @@ Game JSON format:
 
 # Todos
 
+1. Give choice from existing users or option to create a new one and save user stats (to JSON or storage) to allow reuse
 1. For room/corridor, support secret rooms.
 1. For treasures, support alternative treasures.
 1. For users, support association of user to potentially multiple weapon types (add to strength) and multiple suits of armor (add to agility); support charisma (to avoid the need to fight (certain) monsters), and luck (checked against random value to increase or decrease treasure value).
@@ -151,5 +152,5 @@ Game JSON format:
 1. Option to disallow user leaving before confronting antagonist
 1. Option to require explicitly getting treasure; if so, will need to duplicate treasures per room to avoid marking as unavailable if same treasure obtained elsewhere; will also need to show treasure description even if antagonist is missing but treasure is present
 1. Move or allow to move room treasure/antagonist description to treasure/antagonist?
-1. Move all alert/prompt strings into game JSON; provide for i18n
+1. Move all alert/prompt strings into game JSON; provide for i18n (e.g., use [imf](https://github.com/brettz9/imf))
 1. Would need to refactor dealing with antagonists per room if allow antagonists to move; for such characters, the injury index should be tracked on the antagonist, not on the room
