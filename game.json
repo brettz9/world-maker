@@ -2,6 +2,7 @@
     "gameType": "all",
     "gameValue": "",
     "describeDirections": true,
+    "directions": ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest'],
     "characterTypes": {
         "warrior": {
             "name": "Warrior",

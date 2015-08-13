@@ -20,7 +20,6 @@
         if (cfg.alert) {
             this.alert = cfg.alert;
         }
-        this.directions = cfg.directions || ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest'];
     }
     WorldCreator.prototype.processJSON = function (json) {
         this.gameType = json.gameType; // roomID, treasure (and minimum), all
@@ -35,6 +34,7 @@
         this.injuryLevels = json.injuryLevels;
         this.characterTypes = json.characterTypes;
         this.rooms = json.rooms;
+        this.directions = json.directions || ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest'];
         
         // Todo: Give choice from existing users or option to create a new one
         // Todo: Save user stats and allow reuse
