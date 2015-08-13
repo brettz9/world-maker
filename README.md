@@ -27,8 +27,8 @@ wc.createWorld('game.json');
 # API
 
 - ***WorldCreator(cfg)*** - Constructor accepting an optional `cfg` object with the following optional properties:
-    - `prompt` - A function which will be passed a code (currently only "userName" and "room"), a question to pose to the user, and a callback which should be invoked with an action (currently either one of the directions, or 'a' or 'attack' for attack) when the user responds.
-    - `alert` - A function which will be passed a code (currently only "direction"), an alert message to the user, and a callback which should be invoked when the alert has been dismissed and execution can continue.
+    - `prompt` - A function which will be passed a code (currently "characterType", "userName", or "action"), a question to pose to the user, and a callback which should be invoked with the response (currently either one of the directions, or 'a' or 'attack' for attack) when the user is finished providing one.
+    - `alert` - A function which will be passed a code (currently "wrongCharacterType", "wrongAction" or "wrongDirection"), an alert message to the user, and a callback which should be invoked when the alert has been dismissed and execution can continue.
     - `directions` - An array of allowable directions. Defaults to `['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest']`.
 - ***WorldCreator.createWorld(gameJSON)*** - Public instance method to begin the game indicated by `gameJSON`. `gameJSON` can be either a JSON object or a string of a URL to retrieve for the JSON. (Will invoke `processJSON` with the result.)
 
@@ -47,14 +47,28 @@ Game JSON format:
     "gameType": "all", // "roomID", "treasureID", "antagonistID", "minimumTreasure", or "all"; defaults to "all"
     "gameValue": "", // Points to a "roomID", "treasureID", or "antagonistID" string or a "minimumTreasure" numeric amount; not required if "gameType" is "all"
     "describeDirections": true, // boolean
-    "userPattern": {
-        "strength": {
-            "min": 15,
-            "max": 20
+    "characterTypes": {
+        "warrior": {
+            "name": "Warrior",
+            "strength": {
+                "min": 15,
+                "max": 23
+            },
+            "agility": {
+                "min": 15,
+                "max": 18
+            }
         },
-        "agility": {
-            "min": 15,
-            "max": 18
+        "archer": {
+            "name": "Archer",
+            "strength": {
+                "min": 12,
+                "max": 17
+            },
+            "agility": {
+                "min": 20,
+                "max": 22
+            }
         }
     },
     "injuryLevels": {
@@ -126,5 +140,4 @@ Game JSON format:
 1. Allow for antagonists to have a range of strength, agility, etc.
 1. Option to show movement options, etc. as buttons
 1. Option to allow/disallow antagonist attacks before user can move
-1. Allow user to choose from different types of characters
 1. Allow injury levels to differ for different antagonists (including varying for the user)

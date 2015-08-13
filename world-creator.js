@@ -28,6 +28,7 @@
         
         this.userPattern = json.userPattern;
         this.injuryLevels = json.injuryLevels;
+        this.characterTypes = json.characterTypes;
         
         // Todo: Give choice from existing users or option to create a new one
         // Todo: Save user stats and allow reuse
@@ -37,16 +38,28 @@
         }.bind(this));
     };
     WorldCreator.prototype.createCharacter = function (cb) {
-        var strength = this.userPattern.strength;
-        var agility = this.userPattern.agility;
         this.user = {};
-        this.user.strength = WorldCreator.getRandomIntInclusive(strength.min, strength.max);
-        this.user.agility = WorldCreator.getRandomIntInclusive(agility.min, agility.max);
-        this.user.treasure = 0;
-        this.prompt("userName", "Please choose a name for your character", function (name) {
-            this.user.name = name;
-            cb();
-        }.bind(this));
+        this.prompt("characterType", "Please choose a type of character: " + Object.keys(this.characterTypes).map(function (characterType) {
+            return this.characterTypes[characterType].name;
+        }, this).join(', '), function (characterType) {
+            this.userPattern = this.characterTypes[characterType];
+            if (!this.userPattern) {
+                this.alert("wrongCharacterType", "Please choose a valid character type", function () {
+                    this.createCharacter(cb);
+                }, this);
+                return;
+            }
+            
+            var strength = this.userPattern.strength;
+            var agility = this.userPattern.agility;
+            this.user.strength = WorldCreator.getRandomIntInclusive(strength.min, strength.max);
+            this.user.agility = WorldCreator.getRandomIntInclusive(agility.min, agility.max);
+            this.user.treasure = 0;
+            this.prompt("userName", "Please choose a name for your character", function (name) {
+                this.user.name = name;
+                cb();
+            }, this);
+        }, this);
     };
     WorldCreator.prototype.processRoom = function (room) {
         var antagonist = this.antagonists[room.antagonistID]; // description, strength, agility
@@ -59,12 +72,12 @@
 
         desc += "What would you like to do (attack, north, south, etc.)?";
         
-        this.prompt("room", desc, function (action) {
+        this.prompt("action", desc, function (action) {
             if (this.directions.indexOf(action) > -1) {
                 if (!room.rooms[action]) {
-                    return this.alert("direction", "You can't go that direction.", function () {
+                    return this.alert("wrongDirection", "You can't go that direction.", function () {
                         this.processRoom(room);
-                    }.bind(this));
+                    }, this);
                 }
                 this.processRoom(room.rooms[action]);
             }
@@ -84,15 +97,20 @@
                     this.gameValue;
                 }
             }
-        }.bind(this));
+            else {
+                this.alert("wrongAction", "The action you have chosen is not recognized. Please try another.", function () {
+                    this.processRoom(room);
+                }, this);
+            }
+        }, this);
     };
-    WorldCreator.prototype.alert = function (code, msg, cb) {
+    WorldCreator.prototype.alert = function (code, msg, cb, thisArg) {
         alert(msg);
-        cb(code);
+        cb.call(thisArg, code);
     };
-    WorldCreator.prototype.prompt = function (code, desc, cb) {
-        var action = prompt(desc);
-        cb(action, code);
+    WorldCreator.prototype.prompt = function (code, desc, cb, thisArg) {
+        var response = prompt(desc);
+        cb.call(thisArg, response, code);
     };
     WorldCreator.prototype.createWorld = function (jsonURL) {
         if (typeof jsonURL === 'string') {
