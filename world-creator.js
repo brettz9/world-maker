@@ -76,8 +76,8 @@
                 }
                 this.user.agility;
                 antagonist.strength;
-                this.injuryLevels.user.replace(/\{\{user\}\}/g, this.user.name);
-                this.injuryLevels.antagonist.replace(/\{\{antagonist\}\}/g, antagonist.description);
+                this.injuryLevels.user[i].replace(/\{\{user\}\}/g, this.user.name);
+                this.injuryLevels.antagonist[i].replace(/\{\{antagonist\}\}/g, antagonist.description);
                 
                 this.user.treasure += treasure.value;
                 if (this.gameType === '') { // roomID, treasure (and minimum), all
