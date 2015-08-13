@@ -85,7 +85,8 @@
         var treasure = this.treasures[room.treasureID]; // description, value
         
         var desc = [
-                room.description,
+                room.description
+            ].concat(!this.injuryLevels.antagonist[room.antagonistInjuryIndex] ? [] : [
                 room.antagonistDescription.
                     replace(/\{\{antagonist\}\}/g, antagonist.description).
                     replace(/\{\{antagonist\|initialCap\}\}/g, function () {
@@ -96,7 +97,7 @@
                     replace(/\{\{treasure\|initialCap\}\}/g, function () {
                         return initialCase(treasure.description);
                     })
-            ].join(' ') +
+            ]).join(' ') +
             (this.describeDirections ? " You may go " + Object.keys(room.rooms).join(', ') + '.' : '') +
             '\n';
 
@@ -112,6 +113,12 @@
                 this.processRoom(room.rooms[action]);
             }
             else if (action === 'a' || action === 'attack') {
+                if (!this.injuryLevels.antagonist[room.antagonistInjuryIndex]) {
+                    this.alert("cannotAttack", "There is nothing to attack!", function () {
+                        this.processRoom(roomID);
+                    }, this);
+                    return;
+                }
                 this.processUserAttack(antagonist, treasure, roomID);
             }
             else {
@@ -119,6 +126,11 @@
                     this.processRoom(roomID);
                 }, this);
             }
+        }, this);
+    };
+    WorldCreator.prototype.processUserWin = function () {
+        this.alert("userWon", "You won the game! The game will begin again.", function () {
+            this.createWorld(this.jsonURL);
         }, this);
     };
     WorldCreator.prototype.processUserAttack = function (antagonist, treasure, roomID) {
@@ -139,6 +151,10 @@
                         this.user.treasure += treasure.value;
                         switch (this.gameType) {
                             case "roomID":
+                                if (this.gameValue === roomID) {
+                                    this.processUserWin();
+                                    return;
+                                }
                                 break;
                             case "treasureID":
                                 break;
@@ -148,10 +164,10 @@
                                 break;
                             case "all":
                                 break;
-                            this.gameValue; // "roomID", "treasureID", or "antagonistID" string or a "minimumTreasure" numeric amount
-                            this.processRoom(roomID);
-                            // Todo: Duplicate treasures per room to avoid marking as unavailable if same treasure obtained elsewhere
                         }
+                        // this.gameValue; // "roomID", "treasureID", or "antagonistID" string or a "minimumTreasure" numeric amount
+                        // Todo: Duplicate treasures per room to avoid marking as unavailable if same treasure obtained elsewhere
+                        this.processRoom(roomID);
                     }, this);
                     return;
                 }
