@@ -44,8 +44,8 @@ Game JSON format:
 
 ```js
 {
-    "gameType": "all", // "roomID", "treasureID", "minimumTreasure", or "all"; defaults to "all"
-    "gameValue": "", // Points to a "roomID" or "treasureID" string or a "minimumTreasure" numeric amount; not required if "gameType" is "all"
+    "gameType": "all", // "roomID", "treasureID", "antagonistID", "minimumTreasure", or "all"; defaults to "all"
+    "gameValue": "", // Points to a "roomID", "treasureID", or "antagonistID" string or a "minimumTreasure" numeric amount; not required if "gameType" is "all"
     "describeDirections": true, // boolean
     "userPattern": {
         "strength": {
