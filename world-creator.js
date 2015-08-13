@@ -101,7 +101,7 @@
                         this.processRoom(room);
                     }, this);
                 }
-                this.processRoom(room.rooms[action]);
+                this.processRoom(this.rooms[room.rooms[action]]);
             }
             else if (action === 'a' || action === 'attack') {
                 var userRand = Math.random();
