@@ -12,6 +12,9 @@
         if (cfg.prompt) {
             this.prompt = cfg.prompt;
         }
+        if (cfg.alert) {
+            this.alert = cfg.alert;
+        }
     }
     WorldCreator.prototype.processJSON = function (json) {
         this.gameType = json.gameType; // roomID, treasure (and minimum), all
@@ -58,8 +61,9 @@
         this.prompt(desc, function (action) {
             if (['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest'].indexOf(action) > -1) {
                 if (!room.childRooms[action]) {
-                    alert("You can't go that direction.");
-                    return this.processRoom(room);
+                    return this.alert("You can't go that direction.", function () {
+                        this.processRoom(room);
+                    }.bind(this));
                 }
                 this.processRoom(room.childRooms[action]);
             }
@@ -78,6 +82,10 @@
                 }
             }
         });
+    };
+    WorldCreator.prototype.alert = function (msg, cb) {
+        alert(msg);
+        cb();
     };
     WorldCreator.prototype.prompt = function (desc, cb) {
         var action = prompt(desc);
