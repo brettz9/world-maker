@@ -139,6 +139,8 @@
                         if (this.gameType === '') { // "roomID", "treasureID", "antagonistID", "minimumTreasure", or "all"
                             this.gameValue; // "roomID", "treasureID", or "antagonistID" string or a "minimumTreasure" numeric amount
                             this.processRoom(room);
+                            // Todo: Duplicate antagonist injury indexes, etc. in case same antag. repeated across rooms!
+                            // Todo: Duplicate treasures per room to avoid marking as unavailable if same treasure obtained elsewhere
                         }
                     }, this);
                     return;
