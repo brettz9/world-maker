@@ -27,8 +27,8 @@ wc.create('game.json');
 # API
 
 - ***WorldCreator(cfg)*** - Constructor accepting an optional `cfg` object with the following optional properties:
-    - `prompt` - A function which will be passed a question message to the user and a callback which should be invoked with an action (currently either one of the directions, or 'a' or 'attack' for attack) when the user responds.
-    - `alert` - A function which will be passed an alert message to the user and a callback which should be invoked when the alert has been dismissed and execution can continue.
+    - `prompt` - A function which will be passed a code (currently only "userName" and "room"), a question to pose to the user, and a callback which should be invoked with an action (currently either one of the directions, or 'a' or 'attack' for attack) when the user responds.
+    - `alert` - A function which will be passed a code (currently only "direction"), an alert message to the user, and a callback which should be invoked when the alert has been dismissed and execution can continue.
     - `directions` - An array of allowable directions. Defaults to `['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest']`.
 - ***WorldCreator.create(gameJSON)*** - Public instance method to begin the game indicated by `gameJSON`. `gameJSON` can be either a JSON object or a string of a URL to retrieve for the JSON. (Will invoke `processJSON` with the result.)
 
@@ -36,6 +36,7 @@ The following instance methods of `WorldCreator` should normallly not need to be
 
 - ***WorldCreator.processJSON*** - Handles retrieved JSON (its single argument).
 - ***WorldCreator.processRoom*** - Handles an individual room object (its single argument).
+- ***WorldCreator.createCharacter*** - Build a character object (with the following numeric properties: `strength`, `agility`, `treasure`). Accepts a callback as its single argument (e.g., to invoke after a name for the character has been chosen).
 - ***WorldCreator.alert*** - Utilizes the simple browser alert. Behavior can be overridden via `cfg` during instantiation.
 - ***WorldCreator.prompt*** - Utilizes the simple browser prompt. Behavior can be overridden via `cfg` during instantiation.
 
@@ -55,6 +56,20 @@ Game JSON format:
             "min": 15,
             "max": 18
         }
+    },
+    "injuryLevels": {
+        "user": [
+            "{{user}} receives a flesh wound.",
+            "{{user}} is hurting.",
+            "{{user}} is bleeding profusely!",
+            "Sad to say, {{user}} is now deceased. Please try again."
+        ],
+        "antagonist": [
+            "{{antagonist}} receives a flesh wound.",
+            "{{antagonist}} is hurting.",
+            "{{antagonist}} is bleeding profusely!",
+            "{{antagonist}} is now pushing up daisies."
+        ]
     },
     "startingRoom": "mainHall", // ID of a room where the user will begin
     "antagonists": {

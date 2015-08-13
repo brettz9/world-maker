@@ -26,19 +26,27 @@
         this.antagonists = json.antagonists; // id: description, strength, agility
         this.treasures = json.treasures; // id: description, value
         
-        var userPattern = json.userPattern;
-        var strength = userPattern.strength;
-        var agility = userPattern.agility;
+        this.userPattern = json.userPattern;
+        this.injuryLevels = json.injuryLevels;
         
         // Todo: Give choice from existing users or option to create a new one
         // Todo: Save user stats and allow reuse
+        this.createCharacter(function () {
+            var room = json.startingRoom;
+            this.processRoom(room);
+        }.bind(this));
+    };
+    WorldCreator.prototype.createCharacter = function (cb) {
+        var strength = this.userPattern.strength;
+        var agility = this.userPattern.agility;
         this.user = {};
         this.user.strength = WorldCreator.getRandomIntInclusive(strength.min, strength.max);
         this.user.agility = WorldCreator.getRandomIntInclusive(agility.min, agility.max);
         this.user.treasure = 0;
-        
-        var room = json.startingRoom;
-        this.processRoom(room);
+        this.prompt("userName", "Please choose a name for your character", function (name) {
+            this.user.name = name;
+            cb();
+        }.bind(this));
     };
     WorldCreator.prototype.processRoom = function (room) {
         var antagonist = this.antagonists[room.antagonistID]; // description, strength, agility
@@ -51,10 +59,10 @@
 
         desc += "What would you like to do (attack, north, south, etc.)?";
         
-        this.prompt(desc, function (action) {
+        this.prompt("room", desc, function (action) {
             if (this.directions.indexOf(action) > -1) {
                 if (!room.rooms[action]) {
-                    return this.alert("You can't go that direction.", function () {
+                    return this.alert("direction", "You can't go that direction.", function () {
                         this.processRoom(room);
                     }.bind(this));
                 }
@@ -76,13 +84,13 @@
             }
         }.bind(this));
     };
-    WorldCreator.prototype.alert = function (msg, cb) {
+    WorldCreator.prototype.alert = function (code, msg, cb) {
         alert(msg);
-        cb();
+        cb(code);
     };
-    WorldCreator.prototype.prompt = function (desc, cb) {
+    WorldCreator.prototype.prompt = function (code, desc, cb) {
         var action = prompt(desc);
-        cb(action);
+        cb(action, code);
     };
     WorldCreator.prototype.create = function (jsonURL) {
         if (typeof jsonURL === 'string') {
