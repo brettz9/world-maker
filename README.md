@@ -148,3 +148,4 @@ Game JSON format:
 1. Option to allow/disallow antagonist attacks before user can move
 1. Allow injury levels to differ for different antagonists (including varying for the user)
 1. Option to require explicitly getting treasure
+1. Move or allow to move room treasure/antagonist description to treasure/antagonist?
