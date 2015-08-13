@@ -27,6 +27,7 @@
         this.user = {};
         this.user.strength = getRandomIntInclusive(strength.min, strength.max);
         this.user.agility = getRandomIntInclusive(agility.min, agility.max);
+        this.user.treasure = 0;
         
         var room = json.room;
         this.processRoom(room);
@@ -59,12 +60,15 @@
                 this.processRoom(room.childRooms[action]);
             }
             else if (action === 'a' || action === 'attack') {
-                
-                this.user.strength;
+                var userRand = Math.random();
+                var antagRand = Math.random();
+                if ((userRand + this.user.strength) > (antagRand + antagonist.agility)) {
+                    
+                }
                 this.user.agility;
                 antagonist.strength;
-                antagonist.agility;
-                treasure.value;
+                
+                this.user.treasure += treasure.value;
                 if (this.gameType === '') { // roomID, treasure (and minimum), all
                     this.gameValue;
                 }
