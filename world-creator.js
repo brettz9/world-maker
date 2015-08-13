@@ -127,7 +127,7 @@
         if (userAttackLuck < this.user.strength) {
             if (antagEvadeLuck < antagonist.agility) {
                 this.alert("antagonistDodged", antagonist.name + " dodged your attack.", function () {
-                    this.processAntagonistAttack(antagonist, treasure, room);
+                    this.processAntagonistAttack(antagonist, room);
                 }, this);
                 return;
             }
@@ -136,22 +136,22 @@
                 if (this.injuryLevels.antagonist[antagonist.injuryIndex] === undefined) {
                     this.alert("antagonistDefeated", antagonist.name + " is defeated!", function () {
                         this.user.treasure += treasure.value;
-                        if (this.gameType === '') { // roomID, treasure (and minimum), all
-                            this.gameValue;
+                        if (this.gameType === '') { // "roomID", "treasureID", "antagonistID", "minimumTreasure", or "all"
+                            this.gameValue; // "roomID", "treasureID", or "antagonistID" string or a "minimumTreasure" numeric amount
                             this.processRoom(room);
                         }
                     }, this);
                     return;
                 }
-                this.processAntagonistAttack(antagonist, treasure, room);
+                this.processAntagonistAttack(antagonist, room);
             }, this);
             return;
         }
         this.alert("userMissed", "You missed.", function () {
-            this.processAntagonistAttack(antagonist, treasure, room);
+            this.processAntagonistAttack(antagonist, room);
         }, this);
     };
-    WorldCreator.prototype.processAntagonistAttack = function (antagonist, treasure, room) {
+    WorldCreator.prototype.processAntagonistAttack = function (antagonist, room) {
         var antagAttackLuck = Math.random() * 100;
         var userEvadeLuck = Math.random() * 100;
         if (antagAttackLuck < antagonist.strength) {
