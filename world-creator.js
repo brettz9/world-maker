@@ -149,24 +149,31 @@
                 if (this.injuryLevels.antagonist[room.antagonistInjuryIndex] === undefined) {
                     this.alert("antagonistDefeated", antagonist.name + " is defeated!", function () {
                         this.user.treasure += treasure.value;
+                        var won = false;
                         switch (this.gameType) {
                             case "roomID":
-                                if (this.gameValue === roomID) {
-                                    this.processUserWin();
-                                    return;
-                                }
+                                won = this.gameValue === roomID;
                                 break;
                             case "treasureID":
+                                won = this.gameValue === room.treasureID;
                                 break;
                             case "antagonistID":
+                                won = this.gameValue === room.antagonistID;
                                 break;
                             case "minimumTreasure":
+                                won = this.user.treasure >= this.gameValue;
                                 break;
                             case "all":
+                                won = Object.keys(this.rooms).every(function (aRoomID) {
+                                    var aRoom = this.rooms[aRoomID];
+                                    return aRoom.antagonistInjuryIndex && !this.injuryLevels.antagonist[aRoom.antagonistInjuryIndex];
+                                });
                                 break;
                         }
-                        // this.gameValue; // "roomID", "treasureID", or "antagonistID" string or a "minimumTreasure" numeric amount
-                        // Todo: Duplicate treasures per room to avoid marking as unavailable if same treasure obtained elsewhere
+                        if (won) {
+                            this.processUserWin();
+                            return;
+                        }
                         this.processRoom(roomID);
                     }, this);
                     return;
