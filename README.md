@@ -53,7 +53,7 @@ Game JSON format:
             "max": 20
         },
         "agility": { //
-            "min": 20,
+            "min": 15,
             "max": 18
         }
     },
