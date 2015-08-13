@@ -45,7 +45,7 @@ Game JSON format:
 {
     "gameType": "all", // "roomID", "treasureID", "minimumTreasure", or "all"; defaults to "all"
     "gameValue": "", // Points to a "roomID" or "treasureID" string or a "minimumTreasure" numeric amount; not required if "gameType" is "all"
-    "describeChildRooms": true, // boolean
+    "describeDirections": true, // boolean
     "userPattern": {
         "strength": {
             "min": 15,
@@ -83,12 +83,18 @@ Game JSON format:
         "mainHall": {
             "description": "You are in the main hall. {{antagonist}} is already here to greet you. He is holding {{treasure}}.",
             "antagonistID": "goblin",
-            "treasureID": "ruby"
+            "treasureID": "ruby",
+            "rooms": {
+                "south": "eerieCorridor"
+            }
         },
         "eerieCorridor": {
             "description": "You step into a dank, eerie-looking corridor. In the shadows, you see {{antagonist}} guarding {{treasure}}.",
             "antagonistID": "ogre",
-            "treasureID": "emerald"
+            "treasureID": "emerald",
+            "rooms": {
+                "north": "mainHall" // Directions have to specified in both ways; also allows one-way movement
+            }
         }
     }
 }
@@ -105,3 +111,4 @@ Game JSON format:
 1. Allow for antagonists to have a range of strength, agility, etc.
 1. Option to show movement options, etc. as buttons
 1. Option to allow/disallow antagonist attacks before user can move
+1. Allow user to choose from different types of characters

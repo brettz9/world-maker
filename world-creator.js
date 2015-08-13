@@ -20,7 +20,7 @@
     WorldCreator.prototype.processJSON = function (json) {
         this.gameType = json.gameType; // roomID, treasure (and minimum), all
         this.gameValue = json.gameValue;
-        this.describeChildRooms = json.describeChildRooms === undefined ? true : json.describeChildRooms;
+        this.describeDirections = json.describeDirections === undefined ? true : json.describeDirections;
         
         this.defaultRoomType = json.defaultRoomType;
         this.antagonists = json.antagonists; // id: description, strength, agility
@@ -45,7 +45,7 @@
         var treasure = this.treasures[room.treasureID]; // description, value
         
         var desc = room.description.replace(/\{\{antagonist\}\}/g, antagonist.description).replace(/\{\{treasure\}\}/g, treasure.description) +
-            (this.describeChildRooms ? "You may go " + Object.keys(room.childRooms).join(', ') : '') +
+            (this.describeDirections ? "You may go " + Object.keys(room.rooms).join(', ') : '') +
             '\n';
         // room.type: room/corridor/etc.
 
@@ -53,12 +53,12 @@
         
         this.prompt(desc, function (action) {
             if (this.directions.indexOf(action) > -1) {
-                if (!room.childRooms[action]) {
+                if (!room.rooms[action]) {
                     return this.alert("You can't go that direction.", function () {
                         this.processRoom(room);
                     }.bind(this));
                 }
-                this.processRoom(room.childRooms[action]);
+                this.processRoom(room.rooms[action]);
             }
             else if (action === 'a' || action === 'attack') {
                 var userRand = Math.random();
