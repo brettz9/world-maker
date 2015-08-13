@@ -111,7 +111,7 @@ Game JSON format:
     },
     "rooms": {
         "mainHall": {
-            "description": "You are in the main hall. {{antagonist}} is already here to greet you. He is holding {{treasure}}.",
+            "description": "You are in the main hall. {{antagonist|initialCap}} is already here to greet you. He is holding {{treasure}}.",
             "antagonistID": "goblin",
             "treasureID": "ruby",
             "rooms": {

@@ -5,6 +5,9 @@
     function getRandomIntInclusive(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+    function initialCase (str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
     function WorldCreator (cfg) {
         if (!(this instanceof WorldCreator)) {
@@ -31,11 +34,12 @@
         this.userPattern = json.userPattern;
         this.injuryLevels = json.injuryLevels;
         this.characterTypes = json.characterTypes;
+        this.rooms = json.rooms;
         
         // Todo: Give choice from existing users or option to create a new one
         // Todo: Save user stats and allow reuse
         this.createCharacter(function () {
-            var room = json.startingRoom;
+            var room = this.rooms[json.startingRoom];
             this.processRoom(room);
         }.bind(this));
     };
@@ -76,11 +80,19 @@
         var antagonist = this.antagonists[room.antagonistID]; // description, strength, agility
         var treasure = this.treasures[room.treasureID]; // description, value
         
-        var desc = room.description.replace(/\{\{antagonist\}\}/g, antagonist.description).replace(/\{\{treasure\}\}/g, treasure.description) +
-            (this.describeDirections ? "You may go " + Object.keys(room.rooms).join(', ') : '') +
+        var desc = room.description.
+                replace(/\{\{antagonist\}\}/g, antagonist.description).
+                replace(/\{\{antagonist\|initialCap\}\}/g, function () {
+                    return initialCase(antagonist.description);
+                }).
+                replace(/\{\{treasure\}\}/g, treasure.description).
+                replace(/\{\{treasure\|initialCap\}\}/g, function () {
+                    return initialCase(treasure.description);
+                }) +
+            (this.describeDirections ? " You may go " + Object.keys(room.rooms).join(', ') : '') +
             '\n';
 
-        desc += "What would you like to do (attack, north, south, etc.)?";
+        desc += " What would you like to do (attack, north, south, etc.)?";
         
         this.prompt("action", desc, function (action) {
             if (this.directions.indexOf(action) > -1) {
