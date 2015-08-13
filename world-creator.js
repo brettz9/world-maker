@@ -26,9 +26,9 @@
         this.antagonists = json.antagonists; // id: name, strength, agility
         this.treasures = json.treasures; // id: name, value
         
-        var userType = json.userType;
-        var strength = userType.strength;
-        var agility = userType.agility;
+        var userPattern = json.userPattern;
+        var strength = userPattern.strength;
+        var agility = userPattern.agility;
         
         // Todo: Give choice from existing users or option to create a new one
         // Todo: Save user stats and allow reuse
@@ -37,7 +37,7 @@
         this.user.agility = WorldCreator.getRandomIntInclusive(agility.min, agility.max);
         this.user.treasure = 0;
         
-        var room = json.room;
+        var room = json.startingRoom;
         this.processRoom(room);
     };
     WorldCreator.prototype.processRoom = function (room) {

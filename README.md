@@ -39,6 +39,51 @@ The following instance methods of `WorldCreator` should normallly not need to be
 - ***WorldCreator.alert*** - Utilizes the simple browser alert. Behavior can be overridden via `cfg` during instantiation.
 - ***WorldCreator.prompt*** - Utilizes the simple browser prompt. Behavior can be overridden via `cfg` during instantiation.
 
+Game JSON format:
+
+```js
+{
+    "gameType": "", // "roomID", "treasureID", "minimumTreasure", or "all"; defaults to "all"
+    "gameValue": "", // Points to a "roomID" or "treasureID" string or a "minimumTreasure" numeric amount
+    "describeChildRooms": true, // boolean
+    "defaultRoomType": "", // Used for naming in giving room descriptions to the user. Might be "corridor", "hall", "room", etc.
+    "userPattern": {
+        "strength": { //
+            "min": 15,
+            "max": 20
+        },
+        "agility": { //
+            "min": 20,
+            "max": 18
+        }
+    },
+    "startingRoom": "", // ID of a room where the user will begin
+    "antagonists": { // 
+        "someAntagonistID": {
+            
+        },
+        "anotherAntagonistID": {
+            
+        }
+    },
+    "treasures": { // 
+        "someTreasureID": {
+            
+        },
+        "anotherTreasureID": {
+            
+        }
+    },
+    "rooms": {
+        "someRoomID": {
+            
+        },
+        "anotherRoomID": {
+            
+        }
+    }
+}
+```
 
 # Todos
 
