@@ -80,15 +80,19 @@
         var antagonist = this.antagonists[room.antagonistID]; // description, strength, agility
         var treasure = this.treasures[room.treasureID]; // description, value
         
-        var desc = room.description.
-                replace(/\{\{antagonist\}\}/g, antagonist.description).
-                replace(/\{\{antagonist\|initialCap\}\}/g, function () {
-                    return initialCase(antagonist.description);
-                }).
-                replace(/\{\{treasure\}\}/g, treasure.description).
-                replace(/\{\{treasure\|initialCap\}\}/g, function () {
-                    return initialCase(treasure.description);
-                }) +
+        var desc = [
+                room.description,
+                room.antagonistDescription.
+                    replace(/\{\{antagonist\}\}/g, antagonist.description).
+                    replace(/\{\{antagonist\|initialCap\}\}/g, function () {
+                        return initialCase(antagonist.description);
+                    }),
+                room.treasureDescription.
+                    replace(/\{\{treasure\}\}/g, treasure.description).
+                    replace(/\{\{treasure\|initialCap\}\}/g, function () {
+                        return initialCase(treasure.description);
+                    })
+            ].join(' ') +
             (this.describeDirections ? " You may go " + Object.keys(room.rooms).join(', ') : '') +
             '\n';
 

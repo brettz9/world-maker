@@ -66,7 +66,9 @@
     "startingRoom": "mainHall",
     "rooms": {
         "mainHall": {
-            "description": "You are in the main hall. {{antagonist|initialCap}} is already here to greet you. He is holding {{treasure}}.",
+            "description": "You are in the main hall.",
+            "antagonistDescription": "{{antagonist|initialCap}} is already here to greet you.",
+            "treasureDescription": "He is holding {{treasure}}.",
             "antagonistID": "goblin",
             "treasureID": "ruby",
             "rooms": {
@@ -74,7 +76,9 @@
             }
         },
         "eerieCorridor": {
-            "description": "You step into a dank, eerie-looking corridor. In the shadows, you see {{antagonist}} guarding {{treasure}}.",
+            "description": "You step into a dank, eerie-looking corridor.",
+            "antagonistDescription": "In the shadows, you see {{antagonist}}.",
+            "treasureDescription": "He is guarding {{treasure}}.",
             "antagonistID": "ogre",
             "treasureID": "emerald",
             "rooms": {

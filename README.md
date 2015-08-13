@@ -112,7 +112,9 @@ Game JSON format:
     "startingRoom": "mainHall", // ID of a room where the user will begin
     "rooms": {
         "mainHall": {
-            "description": "You are in the main hall. {{antagonist|initialCap}} is already here to greet you. He is holding {{treasure}}.",
+            "description": "You are in the main hall.",
+            "antagonistDescription": "{{antagonist|initialCap}} is already here to greet you.",
+            "treasureDescription": "He is holding {{treasure}}.",
             "antagonistID": "goblin",
             "treasureID": "ruby",
             "rooms": {
@@ -120,7 +122,9 @@ Game JSON format:
             }
         },
         "eerieCorridor": {
-            "description": "You step into a dank, eerie-looking corridor. In the shadows, you see {{antagonist}} guarding {{treasure}}.",
+            "description": "You step into a dank, eerie-looking corridor.",
+            "antagonistDescription": "In the shadows, you see {{antagonist}}.",
+            "treasureDescription": "He is guarding {{treasure}}.",
             "antagonistID": "ogre",
             "treasureID": "emerald",
             "rooms": {
@@ -143,3 +147,4 @@ Game JSON format:
 1. Option to show movement options, etc. as buttons
 1. Option to allow/disallow antagonist attacks before user can move
 1. Allow injury levels to differ for different antagonists (including varying for the user)
+1. Option to require explicitly getting treasure
