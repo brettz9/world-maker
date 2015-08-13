@@ -131,7 +131,7 @@
                 }, this);
                 return;
             }
-            this.alert("userAttackSuccess", "You landed a hit. " + this.injuryLevels.antagonist[antagonist.injuryIndex].replace(/\{\{antagonist\}\}/g, antagonist.name), function () {
+            this.alert("userAttackSuccess", this.user.name + " landed a hit. " + this.injuryLevels.antagonist[antagonist.injuryIndex].replace(/\{\{antagonist\}\}/g, antagonist.name), function () {
                 antagonist.injuryIndex++;
                 if (this.injuryLevels.antagonist[antagonist.injuryIndex] === undefined) {
                     this.alert("antagonistDefeated", antagonist.name + " is defeated!", function () {
@@ -149,7 +149,7 @@
             }, this);
             return;
         }
-        this.alert("userMissed", "You missed.", function () {
+        this.alert("userMissed", this.user.name + " missed.", function () {
             this.processAntagonistAttack(antagonist, room);
         }, this);
     };
@@ -158,7 +158,7 @@
         var userEvadeLuck = Math.random() * 100;
         if (antagAttackLuck < antagonist.strength) {
             if (userEvadeLuck < this.user.agility) {
-                this.alert("userDodged", "You dodged an attack! ", function () {
+                this.alert("userDodged", this.user.name + " dodged an attack! ", function () {
                     this.processRoom(room);
                 }, this);
                 return;
