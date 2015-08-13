@@ -41,9 +41,9 @@
     };
     WorldCreator.prototype.createCharacter = function (cb) {
         this.user = {};
-        this.prompt("characterType", "Please choose a type of character: " + Object.keys(this.characterTypes).map(function (characterType) {
+        this.prompt("characterType", "Please choose a type of character: " + Object.keys(this.characterTypes)./*map(function (characterType) {
             return this.characterTypes[characterType].name;
-        }, this).join(', '), function (characterType) {
+        }, this).*/join(', '), function (characterType) {
             this.createCharacterAttributes(characterType, cb);
         }, this);
     };
@@ -61,7 +61,7 @@
         this.user.strength = WorldCreator.getRandomIntInclusive(strength.min, strength.max);
         this.user.agility = WorldCreator.getRandomIntInclusive(agility.min, agility.max);
         this.user.treasure = 0;
-        this.prompt("userName", "Please choose a name for your character", function (name) {
+        this.prompt("userName", "You have strength " + this.user.strength + ", agility " + this.user.agility + "; Please choose a name for your character", function (name) {
             if (!name) {
                 this.alert("wrongUserName", "Please choose a valid user name.", function () {
                     this.createCharacterAttributes(characterType, cb);

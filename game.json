@@ -1,0 +1,84 @@
+{
+    "gameType": "all",
+    "gameValue": "",
+    "describeDirections": true,
+    "characterTypes": {
+        "warrior": {
+            "name": "Warrior",
+            "strength": {
+                "min": 15,
+                "max": 23
+            },
+            "agility": {
+                "min": 15,
+                "max": 18
+            }
+        },
+        "archer": {
+            "name": "Archer",
+            "strength": {
+                "min": 12,
+                "max": 17
+            },
+            "agility": {
+                "min": 20,
+                "max": 22
+            }
+        }
+    },
+    "injuryLevels": {
+        "user": [
+            "{{user}} receives a flesh wound.",
+            "{{user}} is hurting.",
+            "{{user}} is bleeding profusely!",
+            "Sad to say, {{user}} is now deceased. Please try again."
+        ],
+        "antagonist": [
+            "{{antagonist}} receives a flesh wound.",
+            "{{antagonist}} is hurting.",
+            "{{antagonist}} is bleeding profusely!",
+            "{{antagonist}} is now pushing up daisies."
+        ]
+    },
+    "startingRoom": "mainHall",
+    "antagonists": {
+        "goblin": {
+            "description": "an ugly goblin",
+            "strength": 7,
+            "agility": 10
+        },
+        "ogre": {
+            "description": "a foul-smelling ogre",
+            "strength": 20,
+            "agility": 7
+        }
+    },
+    "treasures": {
+        "ruby": {
+            "description": "a beautiful red ruby",
+            "value": 500
+        },
+        "emerald": {
+            "description": "a stunning emerald",
+            "value": 700
+        }
+    },
+    "rooms": {
+        "mainHall": {
+            "description": "You are in the main hall. {{antagonist}} is already here to greet you. He is holding {{treasure}}.",
+            "antagonistID": "goblin",
+            "treasureID": "ruby",
+            "rooms": {
+                "south": "eerieCorridor"
+            }
+        },
+        "eerieCorridor": {
+            "description": "You step into a dank, eerie-looking corridor. In the shadows, you see {{antagonist}} guarding {{treasure}}.",
+            "antagonistID": "ogre",
+            "treasureID": "emerald",
+            "rooms": {
+                "north": "mainHall"
+            }
+        }
+    }
+}
