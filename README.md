@@ -1,7 +1,7 @@
 # world-maker
 
 A simple tool for building interactive choose-your-own-adventure
-type of text games. Inspired by the coolest game from Apple IIe, Eamon!
+type of text games. Inspired by the coolest game from Apple IIe, Eamon ([HTML5](http://www.myabandonware.com/game/eamon-26k) or [java](http://www.eamonag.org/java/index.htm))!
 
 ***INCOMPLETE***
 
