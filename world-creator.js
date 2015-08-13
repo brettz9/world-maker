@@ -40,8 +40,7 @@
         // Todo: Save user stats and allow reuse
         this.createCharacter(function () {
             this.userInjuryIndex = 0;
-            var room = this.rooms[json.startingRoom];
-            this.processRoom(room);
+            this.processRoom(json.startingRoom);
         }.bind(this));
     };
     WorldCreator.prototype.createCharacter = function (cb) {
@@ -77,7 +76,8 @@
             cb();
         }, this);
     };
-    WorldCreator.prototype.processRoom = function (room) {
+    WorldCreator.prototype.processRoom = function (roomID) {
+        var room = this.rooms[roomID];
         var antagonist = this.antagonists[room.antagonistID]; // description, strength, agility
         if (!room.antagonistInjuryIndex) {
             room.antagonistInjuryIndex = 0;
@@ -106,28 +106,29 @@
             if (this.directions.indexOf(action) > -1) {
                 if (!room.rooms[action]) {
                     return this.alert("wrongDirection", "You can't go that direction.", function () {
-                        this.processRoom(room);
+                        this.processRoom(roomID);
                     }, this);
                 }
-                this.processRoom(this.rooms[room.rooms[action]]);
+                this.processRoom(room.rooms[action]);
             }
             else if (action === 'a' || action === 'attack') {
-                this.processUserAttack(antagonist, treasure, room);
+                this.processUserAttack(antagonist, treasure, roomID);
             }
             else {
                 this.alert("wrongAction", "The action you have chosen is not recognized. Please try another.", function () {
-                    this.processRoom(room);
+                    this.processRoom(roomID);
                 }, this);
             }
         }, this);
     };
-    WorldCreator.prototype.processUserAttack = function (antagonist, treasure, room) {
+    WorldCreator.prototype.processUserAttack = function (antagonist, treasure, roomID) {
+        var room = this.rooms[roomID];
         var userAttackLuck = Math.random() * 100;
         var antagEvadeLuck = Math.random() * 100;
         if (userAttackLuck < this.user.strength) {
             if (antagEvadeLuck < antagonist.agility) {
                 this.alert("antagonistDodged", antagonist.name + " dodged your attack.", function () {
-                    this.processAntagonistAttack(antagonist, room);
+                    this.processAntagonistAttack(antagonist, roomID);
                 }, this);
                 return;
             }
@@ -136,29 +137,39 @@
                 if (this.injuryLevels.antagonist[room.antagonistInjuryIndex] === undefined) {
                     this.alert("antagonistDefeated", antagonist.name + " is defeated!", function () {
                         this.user.treasure += treasure.value;
-                        if (this.gameType === '') { // "roomID", "treasureID", "antagonistID", "minimumTreasure", or "all"
+                        switch (this.gameType) {
+                            case "roomID":
+                                break;
+                            case "treasureID":
+                                break;
+                            case "antagonistID":
+                                break;
+                            case "minimumTreasure":
+                                break;
+                            case "all":
+                                break;
                             this.gameValue; // "roomID", "treasureID", or "antagonistID" string or a "minimumTreasure" numeric amount
-                            this.processRoom(room);
+                            this.processRoom(roomID);
                             // Todo: Duplicate treasures per room to avoid marking as unavailable if same treasure obtained elsewhere
                         }
                     }, this);
                     return;
                 }
-                this.processAntagonistAttack(antagonist, room);
+                this.processAntagonistAttack(antagonist, roomID);
             }, this);
             return;
         }
         this.alert("userMissed", this.user.name + " missed.", function () {
-            this.processAntagonistAttack(antagonist, room);
+            this.processAntagonistAttack(antagonist, roomID);
         }, this);
     };
-    WorldCreator.prototype.processAntagonistAttack = function (antagonist, room) {
+    WorldCreator.prototype.processAntagonistAttack = function (antagonist, roomID) {
         var antagAttackLuck = Math.random() * 100;
         var userEvadeLuck = Math.random() * 100;
         if (antagAttackLuck < antagonist.strength) {
             if (userEvadeLuck < this.user.agility) {
                 this.alert("userDodged", this.user.name + " dodged an attack! ", function () {
-                    this.processRoom(room);
+                    this.processRoom(roomID);
                 }, this);
                 return;
             }
@@ -170,12 +181,12 @@
                     }, this);
                     return;
                 }
-                this.processRoom(room);
+                this.processRoom(roomID);
             }, this);
             return;
         }
         this.alert("antagonistMissed", initialCase(antagonist.name) + " missed.", function () {
-            this.processRoom(room);
+            this.processRoom(roomID);
         }, this);
     };
     WorldCreator.prototype.alert = function (code, msg, cb, thisArg) {
