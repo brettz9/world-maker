@@ -104,20 +104,7 @@
                 this.processRoom(this.rooms[room.rooms[action]]);
             }
             else if (action === 'a' || action === 'attack') {
-                var userRand = Math.random();
-                var antagRand = Math.random();
-                if ((userRand + this.user.strength) > (antagRand + antagonist.agility)) {
-                    
-                }
-                this.user.agility;
-                antagonist.strength;
-                this.injuryLevels.user[i].replace(/\{\{user\}\}/g, this.user.name);
-                this.injuryLevels.antagonist[i].replace(/\{\{antagonist\}\}/g, antagonist.description);
-                
-                this.user.treasure += treasure.value;
-                if (this.gameType === '') { // roomID, treasure (and minimum), all
-                    this.gameValue;
-                }
+                this.processAttack();
             }
             else {
                 this.alert("wrongAction", "The action you have chosen is not recognized. Please try another.", function () {
@@ -125,6 +112,33 @@
                 }, this);
             }
         }, this);
+    };
+    WorldCreator.prototype.processAttack = function (antagonist, treasure) {
+        var userAttackLuck = Math.random() * 100;
+        var antagEvadeLuck = Math.random() * 100;
+        if (userAttackLuck < this.user.strength) {
+            if (antagEvadeLuck < antagonist.agility) {
+                
+            }
+            else {
+                this.injuryLevels.antagonist[i].replace(/\{\{antagonist\}\}/g, antagonist.description);
+                this.user.treasure += treasure.value;
+                if (this.gameType === '') { // roomID, treasure (and minimum), all
+                    this.gameValue;
+                }
+            }
+            return;
+        }
+        var antagAttackLuck = Math.random() * 100;
+        var userEvadeLuck = Math.random() * 100;
+        if (antagAttackLuck < antagonist.strength) {
+            if (userEvadeLuck < this.user.agility) {
+                
+            }
+            else {
+                this.injuryLevels.user[i].replace(/\{\{user\}\}/g, this.user.name);
+            }
+        }
     };
     WorldCreator.prototype.alert = function (code, msg, cb, thisArg) {
         alert(msg);

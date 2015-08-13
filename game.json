@@ -6,23 +6,23 @@
         "warrior": {
             "name": "Warrior",
             "strength": {
-                "min": 15,
-                "max": 23
+                "min": 60,
+                "max": 80
             },
             "agility": {
-                "min": 15,
-                "max": 18
+                "min": 50,
+                "max": 60
             }
         },
         "archer": {
             "name": "Archer",
             "strength": {
-                "min": 12,
-                "max": 17
+                "min": 50,
+                "max": 55
             },
             "agility": {
-                "min": 20,
-                "max": 22
+                "min": 75,
+                "max": 85
             }
         }
     },
@@ -44,13 +44,13 @@
     "antagonists": {
         "goblin": {
             "description": "an ugly goblin",
-            "strength": 7,
-            "agility": 10
+            "strength": 40,
+            "agility": 40
         },
         "ogre": {
             "description": "a foul-smelling ogre",
-            "strength": 20,
-            "agility": 7
+            "strength": 60,
+            "agility": 30
         }
     },
     "treasures": {

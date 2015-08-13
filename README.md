@@ -36,6 +36,7 @@ The following instance methods of `WorldCreator` should normallly not need to be
 
 - ***WorldCreator.processJSON*** - Handles retrieved JSON (its single argument).
 - ***WorldCreator.processRoom*** - Handles an individual room object (its single argument).
+- ***WorldCreator.processAttack*** - Handles an attack by the user and any return attack (passed an antagonist and treasure).
 - ***WorldCreator.createCharacter*** - Prompts the user for a character type and invokes `createCharacterAttributes` with the result. Accepts a callback as its single argument (e.g., to invoke after a name for the character has been chosen).
 - ***WorldCreator.createCharacterAttributes*** - Build attributes for the selected character type (its first argument). Will build a character object (with the following numeric properties: `strength`, `agility`, `treasure`). Accepts a callback as its second argument (to invoke after a name for the character has been chosen).
 - ***WorldCreator.alert*** - Utilizes the simple browser alert. Behavior can be overridden via `cfg` during instantiation.
@@ -52,23 +53,23 @@ Game JSON format:
         "warrior": {
             "name": "Warrior",
             "strength": {
-                "min": 15,
-                "max": 23
+                "min": 60,
+                "max": 80
             },
             "agility": {
-                "min": 15,
-                "max": 18
+                "min": 50,
+                "max": 60
             }
         },
         "archer": {
             "name": "Archer",
             "strength": {
-                "min": 12,
-                "max": 17
+                "min": 50,
+                "max": 55
             },
             "agility": {
-                "min": 20,
-                "max": 22
+                "min": 75,
+                "max": 85
             }
         }
     },
@@ -90,13 +91,13 @@ Game JSON format:
     "antagonists": {
         "goblin": {
             "description": "an ugly goblin",
-            "strength": 7,
-            "agility": 10
+            "strength": 40,
+            "agility": 40
         },
         "ogre": {
             "description": "a foul-smelling ogre",
-            "strength": 20,
-            "agility": 7
+            "strength": 60,
+            "agility": 30
         }
     },
     "treasures": {
