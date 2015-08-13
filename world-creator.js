@@ -167,7 +167,7 @@
                                 won = Object.keys(this.rooms).every(function (aRoomID) {
                                     var aRoom = this.rooms[aRoomID];
                                     return aRoom.antagonistInjuryIndex && !this.injuryLevels.antagonist[aRoom.antagonistInjuryIndex];
-                                });
+                                }, this);
                                 break;
                         }
                         if (won) {
