@@ -32,7 +32,7 @@ wc.create('game.json');
     - `directions` - An array of allowable directions. Defaults to ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest'].
 - ***WorldCreator.create(gameJSON)*** - Public method to begin the game indicated by `gameJSON`. `gameJSON` can be either a JSON object or a string of a URL to retrieve for the JSON. (Will invoke `processJSON` with the result.)
 
-The following instance methods of `WorldCreator` should normallly not need to be overridden:
+The following instance methods of `WorldCreator` should normallly not need to be directly overridden:
 
 - ***WorldCreator.processJSON*** - Handles retrieved JSON (its single argument).
 - ***WorldCreator.processRoom*** - Handles an individual room object (its single argument).
