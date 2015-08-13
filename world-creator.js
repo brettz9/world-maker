@@ -44,19 +44,11 @@
         var antagonist = this.antagonists[room.antagonistID]; // description, strength, agility
         var treasure = this.treasures[room.treasureID]; // description, value
         
-        var desc = (room.description ||
-            ("You are in a " +
-                (room.type || this.defaultRoomType) +
-                (this.describeChildRooms ? "You may go " + Object.keys(room.childRooms).join(', ') : '')
-            )) + '\n';
+        var desc = room.description.replace(/\{\{antagonist\}\}/g, antagonist.description).replace(/\{\{treasure\}\}/g, treasure.description) +
+            (this.describeChildRooms ? "You may go " + Object.keys(room.childRooms).join(', ') : '') +
+            '\n';
         // room.type: room/corridor/etc.
 
-        if (antagonist && antagonist.description) {
-            desc += "You see a " + antagonist.description + '.\n';
-        }
-        if (treasure && treasure.description) {
-            desc += "There is also a " + treasure.description + '.\n';
-        }
         desc += "What would you like to do (attack, north, south, etc.)?";
         
         this.prompt(desc, function (action) {

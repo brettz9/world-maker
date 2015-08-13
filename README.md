@@ -46,7 +46,6 @@ Game JSON format:
     "gameType": "all", // "roomID", "treasureID", "minimumTreasure", or "all"; defaults to "all"
     "gameValue": "", // Points to a "roomID" or "treasureID" string or a "minimumTreasure" numeric amount; not required if "gameType" is "all"
     "describeChildRooms": true, // boolean
-    "defaultRoomType": "hall", // Used for naming in giving room descriptions to the user. Might be "corridor", "hall", "room", etc.
     "userPattern": {
         "strength": {
             "min": 15,
