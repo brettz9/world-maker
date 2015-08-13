@@ -76,6 +76,8 @@
                 }
                 this.user.agility;
                 antagonist.strength;
+                this.injuryLevels.user;
+                this.injuryLevels.antagonist;
                 
                 this.user.treasure += treasure.value;
                 if (this.gameType === '') { // roomID, treasure (and minimum), all
