@@ -112,7 +112,7 @@
                 this.processRoom(this.rooms[room.rooms[action]]);
             }
             else if (action === 'a' || action === 'attack') {
-                this.processAttack(antagonist, treasure, room);
+                this.processUserAttack(antagonist, treasure, room);
             }
             else {
                 this.alert("wrongAction", "The action you have chosen is not recognized. Please try another.", function () {
@@ -121,32 +121,53 @@
             }
         }, this);
     };
-    WorldCreator.prototype.processAttack = function (antagonist, treasure, room) {
+    WorldCreator.prototype.processUserAttack = function (antagonist, treasure, room) {
         var userAttackLuck = Math.random() * 100;
         var antagEvadeLuck = Math.random() * 100;
         if (userAttackLuck < this.user.strength) {
             if (antagEvadeLuck < antagonist.agility) {
-                
+                this.alert("antagonistDodged", antagonist.name + " dodged your attack.", function () {
+                    this.processAntagonistAttack(antagonist, treasure, room);
+                }, this);
+                return;
             }
-            else {
-                this.injuryLevels.antagonist[antagonist.injuryIndex++].replace(/\{\{antagonist\}\}/g, antagonist.description);
-                this.user.treasure += treasure.value;
-                if (this.gameType === '') { // roomID, treasure (and minimum), all
-                    this.gameValue;
-                    this.processRoom(room);
+            this.alert("userAttackSuccess", "You landed a hit. " + this.injuryLevels.antagonist[antagonist.injuryIndex].replace(/\{\{antagonist\}\}/g, antagonist.description), function () {
+                antagonist.injuryIndex++;
+                if (this.injuryLevels.antagonist[antagonist.injuryIndex] === undefined) {
+                    this.alert("antagonistDefeated", function () {
+                        this.user.treasure += treasure.value;
+                        if (this.gameType === '') { // roomID, treasure (and minimum), all
+                            this.gameValue;
+                            this.processRoom(room);
+                        }
+                    }, this);
+                    return;
                 }
-            }
+                this.processAntagonistAttack(antagonist, treasure, room);
+            }, this);
             return;
         }
+    };
+    WorldCreator.prototype.processAntagonistAttack = function (antagonist, treasure, room) {
         var antagAttackLuck = Math.random() * 100;
         var userEvadeLuck = Math.random() * 100;
         if (antagAttackLuck < antagonist.strength) {
             if (userEvadeLuck < this.user.agility) {
-                
+                this.alert("userDodged", "You dodged an attack! ", function () {
+                    this.processUserAttack(antagonist, treasure, room);
+                }, this);
+                return;
             }
-            else {
-                this.injuryLevels.user[this.userInjuryIndex++].replace(/\{\{user\}\}/g, this.user.name);
-            }
+            this.alert("antagonistAttackSuccess", initialCase(antagonist.name) + " landed a hit! " + this.injuryLevels.user[this.userInjuryIndex].replace(/\{\{user\}\}/g, this.user.name), function () {
+                this.userInjuryIndex++;
+                if (this.injuryLevels.user[this.userInjuryIndex] === undefined) {
+                    this.alert("gameOver", "Game over. The game will now restart", function () {
+                        this.createWorld(this.jsonURL);
+                    }, this);
+                    return;
+                }
+                this.processUserAttack(antagonist, treasure, room);
+            }, this);
         }
     };
     WorldCreator.prototype.alert = function (code, msg, cb, thisArg) {
@@ -158,6 +179,7 @@
         cb.call(thisArg, response, code);
     };
     WorldCreator.prototype.createWorld = function (jsonURL) {
+        this.jsonURL = jsonURL; // Remember so can restart the game
         if (typeof jsonURL === 'string') {
             getJSON(jsonURL, this.processJSON.bind(this));
         }

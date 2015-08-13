@@ -43,11 +43,13 @@
     },
     "antagonists": {
         "goblin": {
+            "name": "Goblin",
             "description": "an ugly goblin",
             "strength": 40,
             "agility": 40
         },
         "ogre": {
+            "name": "Ogre",
             "description": "a foul-smelling ogre",
             "strength": 60,
             "agility": 30
