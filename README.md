@@ -153,3 +153,4 @@ Game JSON format:
 1. Option to require explicitly getting treasure
 1. Move or allow to move room treasure/antagonist description to treasure/antagonist?
 1. Move all alert/prompt strings into game JSON; provide for i18n
+1. Would need to refactor dealing with antagonists per room if allow antagonists to move; for such characters, the injury index should be tracked on the antagonist, not on the room
