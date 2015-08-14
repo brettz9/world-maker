@@ -99,9 +99,12 @@
             (this.describeDirections ? " You may go " + Object.keys(room.rooms).join(', ') + '.' : '') +
             '\n';
 
-        desc += " What would you like to do (attack, north, south, etc.)?";
+        desc += " What would you like to do (attack, north, south, exit, etc.)?";
         
         this.prompt("action", desc, function (action) {
+            if (action === 'exit') {
+                return;
+            }
             if (this.directions.indexOf(action) > -1) {
                 if (!room.rooms[action]) {
                     return this.alert("wrongDirection", "You can't go that direction.", function () {
