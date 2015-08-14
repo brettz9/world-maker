@@ -3,6 +3,10 @@
 A simple tool for building interactive choose-your-own-adventure
 type of text games. Inspired by the coolest game from Apple IIe, Eamon ([HTML5](http://www.myabandonware.com/game/eamon-26k) or [java](http://www.eamonag.org/java/index.htm))!
 
+Making such games is a great beginning task for children learning
+programming. I just wanted to take it a step further (maybe serving
+as a possible basis of study for young intermediate programmers).
+
 # Installation
 
 `npm install .`
@@ -154,3 +158,4 @@ Game JSON format:
 1. Move or allow to move room treasure/antagonist description to treasure/antagonist?
 1. Move all alert/prompt strings into game JSON; provide for i18n (e.g., use [imf](https://github.com/brettz9/imf))
 1. Would need to refactor dealing with antagonists per room if allow antagonists to move; for such characters, the injury index should be tracked on the antagonist, not on the room
+1. Make commands externally extensible
