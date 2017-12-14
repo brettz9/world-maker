@@ -8,7 +8,7 @@
     "contributors": [],
     "main": "index",
     "dependencies": {
-        "simple-get-json": "1.x"
+        "simple-get-json": "^3.2.1"
     },
     "repository": {
         "type": "git",
